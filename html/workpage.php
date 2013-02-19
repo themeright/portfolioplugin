@@ -261,8 +261,9 @@ function css_class_tag_filter($classes){
          echo "<div class=\"$class\">\n";
          echo $the_query->post->post_title;
          //echo $the_query->post->post_content;
-       
+         echo '<a href="' . get_permalink($post->ID) . '" >';
          echo get_the_post_thumbnail($the_query->post->ID, 'thumbnail');  
+         echo  '</a>';
          echo $the_query->post->post_excerpt;
          echo '</div>';
         
