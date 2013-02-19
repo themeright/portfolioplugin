@@ -250,6 +250,8 @@ function css_class_tag_filter($classes){
 
     $the_query = new WP_Query($query);
 
+    
+    
     while($the_query->have_posts()){
 
          add_filter('post_class',array($this,'css_class_tag_filter'));
@@ -257,14 +259,17 @@ function css_class_tag_filter($classes){
          
          $class = 'work ' . implode(' ', get_post_class());
 
-        
+         var_dump($the_query->post);
          echo "<div class=\"$class\">\n";
-         echo $the_query->post->post_title;
+         echo '<h1 class="headline">' . $the_query->post->post_title . '</h1>';
          //echo $the_query->post->post_content;
          echo '<a href="' . get_permalink($post->ID) . '" >';
          echo get_the_post_thumbnail($the_query->post->ID, 'thumbnail');  
          echo  '</a>';
-         echo $the_query->post->post_excerpt;
+         
+         if ($the_query->post->post_excerpt) {
+         echo '<div class="post_excerpt">' . $the_query->post->post_excerpt . '</div>';
+         }
          echo '</div>';
         
 
@@ -273,7 +278,7 @@ function css_class_tag_filter($classes){
         
 
     }
-
+    
      echo '</div>';
      
      
