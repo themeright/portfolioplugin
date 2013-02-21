@@ -1,4 +1,4 @@
-#filters {
+#oppp-filters {
     padding: 5px;
     margin: 0 auto;
 }
@@ -6,7 +6,7 @@
 
 
 
-#filters > li > a{
+#oppp-filters > li > a{
   padding-right: 12px;
   padding-left: 12px;
   margin-right: 2px;
@@ -17,11 +17,11 @@
 
 
 
-#filters > li {
+#oppp-filters > li {
   margin-bottom: -1px;
 }
 
-#filters > li > a {
+#oppp-filters > li > a {
   padding-top: 8px;
   padding-bottom: 8px;
   line-height: 20px;
@@ -31,12 +31,12 @@
           border-radius: 4px 4px 0 0;
 }
 
-#filters > li > a:hover {
+#oppp-filters > li > a:hover {
   border-color: #eeeeee #eeeeee #dddddd;
 }
 
-#filters > .active > a,
-#filters > .active > a:hover {
+#oppp-filters > .active > a,
+#oppp-filters > .active > a:hover {
   color: #555555;
   cursor: default;
   background-color: #ffffff;
@@ -45,14 +45,14 @@
 }
 
 
-#portfolio-filters {
+#oppp-portfolio-filters {
 
   font-size: 18px ;
   height: 40px;
 }
-#portfolio-filters ul{
+#oppp-portfolio-filters ul{
 
-  margin: 0 0 10px 25px;
+  margin: 0 0 10px 0;
 
   -webkit-margin-before: 1em;
 -webkit-margin-after: 1em;
@@ -60,17 +60,17 @@
 -webkit-margin-end: 0px;
 -webkit-padding-start: 40px;
 }
-#filters {
+#oppp-filters {
 
   list-style: none;
   margin-bottom: 20px;
 }
-#filters li {
+#oppp-filters li {
 
   float: left;
   line-height: 20px;
 }
-.teasers_work { 
+.work { 
      
   width: 290px;
   height: 290px;

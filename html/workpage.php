@@ -3,7 +3,7 @@ class WorkPage{
 
   function __construct()
   {
-            add_shortcode( 'pp', array($this,'portfolio_page_shortcode'));
+            add_shortcode( 'oppp', array($this,'portfolio_page_shortcode'));
             add_action('wp_enqueue_scripts', array($this, 'load_js'));
             add_action( 'wp_enqueue_scripts', array($this,'portfolio_stylesheet') );
           //  add_action('wp_enqueue_scripts', array($this, 'load_isotope_middle_js'));
@@ -15,7 +15,7 @@ class WorkPage{
 
 
   function portfolio_stylesheet() {
-    wp_enqueue_style( 'portfoliostyle', plugins_url( 'css/portfolio.css', dirname(__FILE__) ) );
+    wp_enqueue_style( 'portfoliostyle', plugins_url( 'css/one-page-portfolio-plugin.css', dirname(__FILE__) ) );
   }
 
   function load_js(){
@@ -111,21 +111,18 @@ $.Isotope.prototype._masonryGetContainerSize = function() {
           jQuery(function ($) {
     /* You can safely use $ in this code block to reference jQuery */
 
-var $work = $('#portfolio');
+var $work = $('#oppp-portfolio');
 
 $work.isotope({
   // options
-  itemSelector : '.work',
-  resizable: false,
-  masonry: {
-    columnWidth: 300,
-    cornerStampSelector: '.corner-stamp'
-  }
+  itemSelector : '.oppp-work-content',
+  layoutMode : 'fitRows'
+ 
   
 });
 
 // filter items when filter link is clicked
-$('#filters a').click(function(){
+$('#oppp-filters a').click(function(){
   var selector = $(this).attr('data-filter');
   $work.isotope({ filter: selector });
   return false;
@@ -171,12 +168,14 @@ function removenontag($v){
 
 function css_class_tag_filter($classes){
 
+    
+
     $tag_class = array_filter($classes, array($this,'removenontag'));
 
-   
+    $tag_class_remove_blank = str_ireplace(" ","-",$tag_class);   
     
    
-    return str_ireplace("tag-","",$tag_class);
+    return str_ireplace("tag-","oppp-",$tag_class_remove_blank);
 }
 
 
@@ -189,19 +188,21 @@ function css_class_tag_filter($classes){
 
     ?>
 
-     <div id="portfolio-filters">
-     <ul id="filters" class="nav nav-pills">
+     <div id="oppp-portfolio-filters">
+     <ul id="oppp-filters" class="nav nav-pills">
 
        <li><a href="#" data-filter="*">show all</a></li>
      <?php
         
-        $options = get_option('portfolio_options');
+        $options = get_option('oppp_portfolio_options');
 
         $filter_options = $options['tag_filter_select'];
         foreach($filter_options as $filter_option)
         {
 
-               echo '<li><a href="#" data-filter=".'.$filter_option.'">'.$filter_option.'</a></li>';
+               $filter_option_remove_blank = str_ireplace(" ","-",$filter_option);   
+
+               echo '<li><a href="#" data-filter=".'.$filter_option_remove_blank.'">'.substr_replace($filter_option,"",0,5).'</a></li>';
 
         }
         
@@ -215,6 +216,7 @@ function css_class_tag_filter($classes){
 
      </ul>
      </div>
+     <br>
 
 <?php
   }
@@ -223,7 +225,7 @@ function css_class_tag_filter($classes){
 
   function display_work() {
 
-    $options = get_option('portfolio_options');
+    $options = get_option('oppp_portfolio_options');
 
    // var_dump($options);
 
@@ -236,7 +238,7 @@ function css_class_tag_filter($classes){
         $this->filter_tag();
 
 
-    echo "<div id=\"portfolio\">\n"; 
+    echo "<div id=\"oppp-portfolio\">\n"; 
     
     $query = array(
     	'tax_query' => array(
@@ -257,14 +259,15 @@ function css_class_tag_filter($classes){
          add_filter('post_class',array($this,'css_class_tag_filter'));
          $the_query->the_post();
          
-         $class = 'work ' . implode(' ', get_post_class());
+         $class = 'oppp-work-content ' . implode(' ', get_post_class());
 
-         var_dump($the_query->post);
+        
          echo "<div class=\"$class\">\n";
+         if($options['post_title_display'])
          echo '<h1 class="headline">' . $the_query->post->post_title . '</h1>';
          //echo $the_query->post->post_content;
          echo '<a href="' . get_permalink($post->ID) . '" >';
-         echo get_the_post_thumbnail($the_query->post->ID, 'thumbnail');  
+         echo get_the_post_thumbnail($the_query->post->ID, $options['thumbnail_size']);  
          echo  '</a>';
          
          if ($the_query->post->post_excerpt) {
@@ -280,6 +283,9 @@ function css_class_tag_filter($classes){
     }
     
      echo '</div>';
+
+
+    
      
      
    }

@@ -1,11 +1,11 @@
 <?php
 /** 
- * Plugin name: portfolio plugin
- * Plugin URI: http://wordpress.org/extend/plugins/crop-thumbnails/
+ * Plugin name: one page portfolio plugin
+ * Plugin URI: http://wordpress.org/extend/plugins/one-page-portfolio-plugin/
  * Author: Pengyi Wang
- * Author URI: http://www.totalmedial.de
+ * Author URI: http://www.themeright.net
  * Version: 1.0
- * Description: create one page portfolio, easy way
+ * Description: create one page portfolio, easy way.
  * 
  * License: GPL v3
  * Copyright 2012  Volkmar Kantor  (email : info@totalmedial.de)
@@ -28,12 +28,13 @@ register_activation_hook( __FILE__, 'portfolio_set_default_options');
 
 function portfolio_set_default_options(){
         
-        if (get_option('portfolio_options') === false) {
+        if (get_option('oppp_portfolio_options') === false) {
 
-              $new_options['sidebar_display'] = true;
-              $new_options['category'] = "work";
-              $new_options['tag_filter'] = true;
-              add_option('portfolio_options', $new_options);
+              
+              
+              $new_options['thumbnail_size'] = "thumbnail";
+              $new_options['post_title_display'] = false;
+              add_option('oppp_portfolio_options', $new_options);
 
         }
         
