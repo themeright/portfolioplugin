@@ -1,7 +1,7 @@
 <?php
 /** 
  * Plugin name: one page portfolio
- * Plugin URI: http://wordpress.org/extend/plugins/one-page-portfolio-plugin/
+ * Plugin URI: http://wordpress.org/extend/plugins/one-page-portfolio/
  * Author: Pengyi Wang
  * Author URI: http://www.themeright.net
  * Version: 1.0
