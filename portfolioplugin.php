@@ -1,6 +1,6 @@
 <?php
 /** 
- * Plugin name: one page portfolio plugin
+ * Plugin name: one page portfolio
  * Plugin URI: http://wordpress.org/extend/plugins/one-page-portfolio-plugin/
  * Author: Pengyi Wang
  * Author URI: http://www.themeright.net
@@ -28,13 +28,13 @@ register_activation_hook( __FILE__, 'portfolio_set_default_options');
 
 function portfolio_set_default_options(){
         
-        if (get_option('oppp_portfolio_options') === false) {
+        if (get_option('opp_portfolio_options') === false) {
 
               
               
               $new_options['thumbnail_size'] = "thumbnail";
               $new_options['post_title_display'] = false;
-              add_option('oppp_portfolio_options', $new_options);
+              add_option('opp_portfolio_options', $new_options);
 
         }
         

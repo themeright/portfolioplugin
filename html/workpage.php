@@ -3,7 +3,7 @@ class WorkPage{
 
   function __construct()
   {
-            add_shortcode( 'oppp', array($this,'portfolio_page_shortcode'));
+            add_shortcode( 'opp', array($this,'portfolio_page_shortcode'));
             add_action('wp_enqueue_scripts', array($this, 'load_js'));
             add_action( 'wp_enqueue_scripts', array($this,'portfolio_stylesheet') );
           //  add_action('wp_enqueue_scripts', array($this, 'load_isotope_middle_js'));
@@ -15,7 +15,7 @@ class WorkPage{
 
 
   function portfolio_stylesheet() {
-    wp_enqueue_style( 'portfoliostyle', plugins_url( 'css/one-page-portfolio-plugin.css', dirname(__FILE__) ) );
+    wp_enqueue_style( 'portfoliostyle', plugins_url( 'css/one-page-portfolio.css', dirname(__FILE__) ) );
   }
 
   function load_js(){
@@ -111,18 +111,18 @@ $.Isotope.prototype._masonryGetContainerSize = function() {
           jQuery(function ($) {
     /* You can safely use $ in this code block to reference jQuery */
 
-var $work = $('#oppp-portfolio');
+var $work = $('#opp-portfolio');
 
 $work.isotope({
   // options
-  itemSelector : '.oppp-work-content',
+  itemSelector : '.opp-work-content',
   layoutMode : 'fitRows'
  
   
 });
 
 // filter items when filter link is clicked
-$('#oppp-filters a').click(function(){
+$('#opp-filters a').click(function(){
   var selector = $(this).attr('data-filter');
   $work.isotope({ filter: selector });
   return false;
@@ -175,7 +175,7 @@ function css_class_tag_filter($classes){
     $tag_class_remove_blank = str_ireplace(" ","-",$tag_class);   
     
    
-    return str_ireplace("tag-","oppp-",$tag_class_remove_blank);
+    return str_ireplace("tag-","opp-",$tag_class_remove_blank);
 }
 
 
@@ -188,13 +188,13 @@ function css_class_tag_filter($classes){
 
     ?>
 
-     <div id="oppp-portfolio-filters">
-     <ul id="oppp-filters" class="nav nav-pills">
+     <div id="opp-portfolio-filters">
+     <ul id="opp-filters" class="nav nav-pills">
 
        <li><a href="#" data-filter="*">show all</a></li>
      <?php
         
-        $options = get_option('oppp_portfolio_options');
+        $options = get_option('opp_portfolio_options');
 
         $filter_options = $options['tag_filter_select'];
         foreach($filter_options as $filter_option)
@@ -225,7 +225,7 @@ function css_class_tag_filter($classes){
 
   function display_work() {
 
-    $options = get_option('oppp_portfolio_options');
+    $options = get_option('opp_portfolio_options');
 
    // var_dump($options);
 
@@ -238,7 +238,7 @@ function css_class_tag_filter($classes){
         $this->filter_tag();
 
 
-    echo "<div id=\"oppp-portfolio\">\n"; 
+    echo "<div id=\"opp-portfolio\">\n"; 
     
     $query = array(
     	'tax_query' => array(
@@ -259,7 +259,7 @@ function css_class_tag_filter($classes){
          add_filter('post_class',array($this,'css_class_tag_filter'));
          $the_query->the_post();
          
-         $class = 'oppp-work-content ' . implode(' ', get_post_class());
+         $class = 'opp-work-content ' . implode(' ', get_post_class());
 
         
          echo "<div class=\"$class\">\n";

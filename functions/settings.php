@@ -70,7 +70,7 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
 
    function portfolio_admin_init(){
 
-		  register_setting('portfolio_setting','oppp_portfolio_options',array($this,'portfolio_validate_options'));
+		  register_setting('portfolio_setting','opp_portfolio_options',array($this,'portfolio_validate_options'));
 
 		  add_settings_section('portfolio_main_section','Main Setting',array($this, 'portfolio_main_setting_section_callback'),'portfolio_setting_section');
 
@@ -95,11 +95,11 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
 
          extract ($data);
 
-        $options = get_option( 'oppp_portfolio_options');
+        $options = get_option( 'opp_portfolio_options');
           
           
         ?>
-          <input type="checkbox" name="oppp_portfolio_options[<?php echo $name;  ?>]"
+          <input type="checkbox" name="opp_portfolio_options[<?php echo $name;  ?>]"
            <?php if ($options[$name]) echo ' checked="checked"'; ?>>
           </input>
     <?php
@@ -108,15 +108,13 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
  function tag_filter_select_check_box($data = array() ) {
 
        extract($data);
-       $options = get_option('oppp_portfolio_options');
+       $options = get_option('opp_portfolio_options');
 
       
        
        
 
-       $args = array(
-          'categories' => '4'
-        );
+       $args = $options['category'];
        $tags = $this->get_category_tags($args);
       
       
@@ -135,11 +133,11 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
        foreach( $tags as $tag)
        {
             
-          $checked = in_array('oppp-'.$tag->tag_name, $options['tag_filter_select']) ? 'checked="checked"' : '';
+          $checked = in_array('opp-'.$tag->tag_name, $options['tag_filter_select']) ? 'checked="checked"' : '';
 
             
-          $html .= sprintf('<input type="checkbox" id="tag_filter_select[%1$s]" name="oppp_portfolio_options[%3$s][]" 
-             value="%1$s" %2$s />', 'oppp-'.$tag->tag_name, $checked, $pag);
+          $html .= sprintf('<input type="checkbox" id="tag_filter_select[%1$s]" name="opp_portfolio_options[%3$s][]" 
+             value="%1$s" %2$s />', 'opp-'.$tag->tag_name, $checked, $pag);
           $html .= sprintf('<label for="tag_filter_select[%1$s]"> %1$s </label>', $tag->tag_name);
             
          
@@ -170,7 +168,7 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
       LEFT JOIN wp_term_taxonomy as t2 ON r2.term_taxonomy_id = t2.term_taxonomy_id
       LEFT JOIN wp_terms as terms2 ON t2.term_id = terms2.term_id
     WHERE
-      t1.taxonomy = 'category' AND p1.post_status = 'publish' AND terms1.term_id IN (".$args['categories'].") AND
+      t1.taxonomy = 'category' AND p1.post_status = 'publish' AND terms1.name = '$args' AND
       t2.taxonomy = 'post_tag' AND p2.post_status = 'publish'
       AND p1.ID = p2.ID
     ORDER by tag_name
@@ -188,10 +186,10 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
  function thumbnail_sizes_list( $data = array() ) {
 
                 extract($data);
-                $options = get_option('oppp_portfolio_options');
+                $options = get_option('opp_portfolio_options');
 
                 ?>
-                <select name="oppp_portfolio_options[<?php echo $name; ?>]">  
+                <select name="opp_portfolio_options[<?php echo $name; ?>]">  
         <?php foreach( $choices as $item ) { ?>
         <option value="<?php echo $item; ?>" 
         <?php selected( $options[$name] == $item ); ?>>
@@ -207,13 +205,13 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
                  extract ($data);
 
                
-                 $options = get_option('oppp_portfolio_options');
+                 $options = get_option('opp_portfolio_options');
                  
                 
                  
                  ?>
 
-            <select name="oppp_portfolio_options[<?php echo $name; ?>]">  
+            <select name="opp_portfolio_options[<?php echo $name; ?>]">  
         <?php foreach( $choices as $item ) { ?>
         <option value="<?php echo $item; ?>" 
         <?php selected( $options[$name] == $item ); ?>>
@@ -226,13 +224,13 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
      function post_title_display_check_box( $data = array() ){
         extract ($data);
 
-        $options = get_option( 'oppp_portfolio_options');
+        $options = get_option( 'opp_portfolio_options');
           
        
 
          
         ?>
-          <input type="checkbox" name="oppp_portfolio_options[<?php echo $name;  ?>]"
+          <input type="checkbox" name="opp_portfolio_options[<?php echo $name;  ?>]"
            <?php if ($options[$name]) echo ' checked="checked"'; ?>>
           </input>
     <?php
@@ -242,13 +240,13 @@ var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s
     function sidebar_display_check_box( $data = array() ){
     	  extract ($data);
 
-    	  $options = get_option( 'oppp_portfolio_options');
+    	  $options = get_option( 'opp_portfolio_options');
           
        
 
          
     	  ?>
-          <input type="checkbox" name="oppp_portfolio_options[<?php echo $name;  ?>]"
+          <input type="checkbox" name="opp_portfolio_options[<?php echo $name;  ?>]"
            <?php if ($options[$name]) echo ' checked="checked"'; ?>>
           </input>
     <?php
